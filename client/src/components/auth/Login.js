@@ -55,10 +55,7 @@ return (
           <div className="container">
             <div className="row">
               <div className="col-8 ">
-                <Link to="/" className="btn btn-primary">
-                  <i >keyboard_backspace</i> Back to
-                  home
-                </Link>
+
                 <div className="col s12" >
                   <h4>
                     <b>Login</b> below

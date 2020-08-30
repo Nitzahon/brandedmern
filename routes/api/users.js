@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
+const passport = require("passport");
 // const mongo = require("mongodb");
 // const assert = require("assert");
 //const users = require("../../controllers/controller.js");
@@ -62,8 +63,34 @@ router.post("/register", (req, res) => {
       }
     });
   });
-  // // Retrieve all Tutorials
+  // // Retrieve all Users
   // router.get("/", users.findAll);
+router.get('/', passport.authenticate("jwt", { session: false }), (req,res) => {
+  // passport.authenticate("jwt", { session: false }),	
+  // (req, res) => {	
+  var userArray;
+  User.find({}, function(err,users){
+    if(err){
+      res.send('something went wrong');
+      next;
+    }
+    res.json(users);
+  });
+// }
+});
+// @route GET api/users/currentuser	
+// @desc Return current user	
+// @access Private	
+router.get("/currentuser", passport.authenticate("jwt", { session: false }),	
+  (req, res) => {	
+    res.json({	
+      id: req.user.id,	
+      name: req.user.name,	
+      email: req.user.email	
+    });	
+  }	
+);	
+
 
   // @route POST api/users/login
 // @desc Login user and return JWT token
@@ -116,6 +143,7 @@ router.post("/login", (req, res) => {
       });
     });
   });
+  
 //   // @route POST api/users/login
 // // @desc Login user and return JWT token
 // // @access Public

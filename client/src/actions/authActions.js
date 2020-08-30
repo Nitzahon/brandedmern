@@ -2,7 +2,7 @@ import axios from "axios";
 import setAuthToken from "../util/setAuthToken";
 import jwt_decode from "jwt-decode";
 
-import { GET_ERRORS, SET_CURRENT_USER, USER_LOADING } from "./types";
+import { GET_ERRORS, SET_CURRENT_USER, GET_CURRENT_USER, USER_LOADING } from "./types";
 
 //Register User
 export const registerUser = (userData, history) => dispatch => {
@@ -13,6 +13,24 @@ export const registerUser = (userData, history) => dispatch => {
     payload:err.response.data
   }))
 }
+// Get current user	
+export const getCurrentUser = () => dispatch => {	
+  dispatch(setUserLoading());	
+  axios	
+    .get("/api/user/currentuser")	
+    .then(res =>	
+      dispatch({	
+        type: GET_CURRENT_USER,	
+        payload: res.data	
+      })	
+    )	
+    .catch(err =>	
+      dispatch({	
+        type: GET_ERRORS,	
+        payload: err.response.data	
+      })	
+    );	
+};	
 
 //Login
 export const loginUser = (userData) => dispatch => {
