@@ -2,17 +2,48 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { logoutUser } from "../../actions/authActions";
+import { logoutUser, getAllUsers } from "../../actions/authActions";
 import axios from "axios";
 
 
 class Dashboard extends Component {
+  constructor(props) {
+    super(props);
+  this.state = {
+  
+    users: []
+  };
+}
   onLogoutClick = e => {
     e.preventDefault();
     this.props.logoutUser();
   };
+  componentDidMount() {
+    this.props.getAllUsers();
+  }
+  
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.auth.users) {
+      this.setState({
+        users: [...nextProps.auth.users]
+      });
+
+    }
+  }
+  // getAllUsers = () =>{
+  //   axios.get("/api/user/")
+  //   .then((response)=>{
+  //     const data=response.data;
+  //     this.setState({users: data});
+  //     console.log('we got data');
+  //   })
+  //   .catch(()=>{
+  //     alert('something went wrong');
+  //   });
+  // }
 render() {
     const { user } = this.props.auth;
+
 return (
       <div style={{ height: "75vh" }} className="container valign-wrapper">
         <div className="row">
@@ -44,6 +75,7 @@ return (
 }
 Dashboard.propTypes = {
   logoutUser: PropTypes.func.isRequired,
+  getAllUsers:PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({
@@ -51,5 +83,5 @@ const mapStateToProps = state => ({
 });
 export default connect(
   mapStateToProps,
-  { logoutUser }
+  { logoutUser, getAllUsers }
 )(Dashboard);

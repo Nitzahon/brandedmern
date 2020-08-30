@@ -13,21 +13,7 @@ const validateLoginInput = require("../../validation/login");
 // Load User model
 const User = require("../../models/User");
 
-// router.get('/', function(req,res,next){
-//     var resultArray=[];
-//     mongo.connect(keys.mongoURI, function(err,db){
-//         assert.equal(null,err);
-//         var cursor = db.collection('users').find();
-//         cursor.forEach(function(doc,err){
-//             assert.equal(null,err);
-//             resultArray.push(doc);
-//         }, function(){
-//             db.close();
-//             res.json(resultArray);
-//         });
-//     });
-    
-// });
+
 // @route POST api/users/register
 // @desc Register user
 // @access Public
@@ -64,24 +50,33 @@ router.post("/register", (req, res) => {
     });
   });
   // // Retrieve all Users
-  // router.get("/", users.findAll);
-router.get('/', passport.authenticate("jwt", { session: false }), (req,res) => {
-  // passport.authenticate("jwt", { session: false }),	
-  // (req, res) => {	
-  var userArray;
-  User.find({}, function(err,users){
+  //, { session: false }
+// router.get('/', function (req,res) { previous stamp from public version
+  router.get('/', passport.authenticate('jwt', { session: false }), (req,res) => { //passport makes it private
+  
+    User.find({}, { _id : 0, email : 1, dateofbirth:1, name:1 }, function(err,users){
     if(err){
       res.send('something went wrong');
       next;
     }
+    // let data = json(users);
+    // console.log("test ", users);
+    // data.forEach((item) => {
+    //   console.log("found: ", item)
+    //   console.log("found email: ", item.email)
+    //   console.log("found dob:", item.dateofbirth)
+    // });
     res.json(users);
   });
-// }
+
 });
 // @route GET api/users/currentuser	
 // @desc Return current user	
 // @access Private	
-router.get("/currentuser", passport.authenticate("jwt", { session: false }),	
+router.get(
+  "/currentuser",	
+  
+  passport.authenticate('jwt', { session: false }),	
   (req, res) => {	
     res.json({	
       id: req.user.id,	

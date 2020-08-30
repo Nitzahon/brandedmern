@@ -1,8 +1,9 @@
 import axios from "axios";
 import setAuthToken from "../util/setAuthToken";
 import jwt_decode from "jwt-decode";
+import passport_jwt from "passport-jwt";
 
-import { GET_ERRORS, SET_CURRENT_USER, GET_CURRENT_USER, USER_LOADING } from "./types";
+import { GET_ERRORS, SET_CURRENT_USER, GET_CURRENT_USER, GET_ALL_USERS, USER_LOADING } from "./types";
 
 //Register User
 export const registerUser = (userData, history) => dispatch => {
@@ -16,8 +17,13 @@ export const registerUser = (userData, history) => dispatch => {
 // Get current user	
 export const getCurrentUser = () => dispatch => {	
   dispatch(setUserLoading());	
+  const token =localStorage.getItem('jwtToken').slice(7,-1);
   axios	
-    .get("/api/user/currentuser")	
+    .get("/api/users/currentuser",{
+      headers: {
+        'Authorization': 'bearer ' + token
+      }
+    })	
     .then(res =>	
       dispatch({	
         type: GET_CURRENT_USER,	
@@ -31,7 +37,56 @@ export const getCurrentUser = () => dispatch => {
       })	
     );	
 };	
+export const getAllUsers = () => dispatch =>{
+  const token =localStorage.getItem('jwtToken').slice(7,-1);
+  dispatch(setUserLoading());	
+  axios	
+    .get("/api/users/"
+    ,{
+      headers: { Authorization: "bearer " + token }
+    })
+    .then(res =>	
+      dispatch({	
+        type: GET_ALL_USERS,	
+        payload: res.data	
+      })	
+    )	
+    .catch(err =>	
+      dispatch({	
+        type: GET_ERRORS,	
+        payload: err.response.data	
+      })	
+    );
+	
+}
 
+// export const getAllUsers = () => dispatch =>{
+//   const token =localStorage.getItem("jwtToken");
+//   dispatch(setUserLoading());	
+//   console.log(token);
+//   axios	
+//     .get("/api/user/",{
+//       headers: {
+//         'Authorization': `token ${token}`
+//       }
+//     })	
+//     .then(res =>	
+//       console.log(res.data + " is this it?")
+//     )	
+//     // .then(res =>	
+//     //   dispatch({	
+//     //     type: GET_ALL_USERS,	
+//     //     payload: res.data	
+//     //   })	
+//     // )	
+//     .catch(err =>	
+//       dispatch({	
+//         type: GET_ERRORS,	
+//         payload: err.response.data	
+//       })	
+//     );	
+// }
+  
 //Login
 export const loginUser = (userData) => dispatch => {
   axios.post("/api/users/login",userData)

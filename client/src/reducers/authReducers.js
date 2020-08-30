@@ -1,12 +1,14 @@
 import {
     SET_CURRENT_USER,
     USER_LOADING,
-    GET_CURRENT_USER
+    GET_CURRENT_USER,
+    GET_ALL_USERS
   } from "../actions/types";
   const isEmpty = require("is-empty");
   const initialState = {
     isAuthenticated: false,
     user: {},
+    users:[],
     loading: false
   };
   export default function(state = initialState, action) {
@@ -25,7 +27,13 @@ import {
         case GET_CURRENT_USER:	
       return {	
         ...state,	
-        profile: action.payload,	
+        users: action.payload,	
+        loading: false	
+      };
+      case GET_ALL_USERS:	
+      return {	
+        ...state,	
+        users: action.payload,	
         loading: false	
       };
       default:

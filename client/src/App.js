@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import jwt_decode from "jwt-decode";
+import jwt from "jsonwebtoken" ;
 import setAuthToken from "./util/setAuthToken";
 import { setCurrentUser, logoutUser } from "./actions/authActions";
 
@@ -25,7 +26,8 @@ if (localStorage.jwtToken) {
   const token = JSON.parse(localStorage.jwtToken);
   setAuthToken(token);
   // Decode token and get user info and exp
-  const decoded = jwt_decode(token);
+  const decoded = jwt_decode(localStorage.jwtToken);
+  console.log(jwt.decode(token));
   // Set user and isAuthenticated
   store.dispatch(setCurrentUser(decoded));
 // Check for expired token
@@ -39,14 +41,7 @@ if (localStorage.jwtToken) {
 }
 
 class App extends Component {
-  state = {
-    quotes: []
-  }
-  componentDidMount() {
-    fetch('/users')
-      .then(res => res.json())
-      .then(quotes => this.setState({ quotes }));
-  }
+
   render() {
     return (
       <Provider store={store}>
