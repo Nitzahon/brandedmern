@@ -95,8 +95,9 @@ class Register extends Component {
       const {errors} = this.state;
     //JSX
     return (
-        <div>
-      <div className="form-box ">
+        <div className="row">
+          <div className="col-4"></div>
+      <div className="form-box col-4">
         <form className="signup-form" onSubmit={this.onSubmit}>
           <h2>Register</h2>
           <hr />
@@ -182,6 +183,7 @@ class Register extends Component {
           {/* <div className="text-center">Already have an account? <Link to="/login">Login here</Link></div> */}
         </form>
       </div>
+      <div className="col-4"></div>
       </div>
     );
   }

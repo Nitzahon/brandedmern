@@ -16,6 +16,10 @@ const UserSchema = new Schema({
     type: String,
     required: true
   },
+  // confirmed: {
+  //   type: Boolean,
+  //   defaultvalue: false,
+  // },
   dateofbirth: {
     type: Date,
     required: true

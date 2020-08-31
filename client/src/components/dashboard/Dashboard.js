@@ -3,44 +3,59 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser, getAllUsers } from "../../actions/authActions";
-import axios from "axios";
+import FilterableTable from "react-filterable-table";
 
+
+
+const fields = [
+  { name: 'name', displayName: "Name",  },
+  { name: 'age', displayName: "Age", inputFilterable: true,  sortable: true },
+  { name: '_id', displayName: "ID",  },
+  {name: 'email', displayName:'Email'}
+];
+
+const calculate_age =(dob) =>{ 
+  var diff_ms = Date.now() - new Date(dob).getTime();
+  var age_dt = new Date(diff_ms); 
+  return Math.abs(age_dt.getUTCFullYear() - 1970);
+} 
 
 class Dashboard extends Component {
+  
   constructor(props) {
     super(props);
   this.state = {
-  
+
     users: []
+
   };
 }
+
   onLogoutClick = e => {
     e.preventDefault();
     this.props.logoutUser();
   };
-  componentDidMount() {
-    this.props.getAllUsers();
-  }
-  
+
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.auth.users) {
+      var tmp = [...nextProps.auth.users];
+      console.log(tmp)
+      tmp.forEach(function(element, index) {
+        element.age = calculate_age(element['dateofbirth']);
+        delete element['dateofbirth'];
+    });
+      console.log(tmp);
       this.setState({
-        users: [...nextProps.auth.users]
+        users:  [...tmp]
       });
 
     }
   }
-  // getAllUsers = () =>{
-  //   axios.get("/api/user/")
-  //   .then((response)=>{
-  //     const data=response.data;
-  //     this.setState({users: data});
-  //     console.log('we got data');
-  //   })
-  //   .catch(()=>{
-  //     alert('something went wrong');
-  //   });
-  // }
+  componentDidMount() {
+    this.props.getAllUsers();
+  }
+
 render() {
     const { user } = this.props.auth;
 
@@ -55,6 +70,19 @@ return (
                 <span style={{ fontFamily: "monospace" }}>MERN</span> app 👏
               </p>
             </h4>
+            <br/>
+            <div>
+
+            <FilterableTable
+    namespace="Users"
+    initialSort="Age"
+    data={this.state.users}
+    fields={fields}
+    noRecordsMessage="There are no people to display"
+    noFilteredRecordsMessage="No people match your filters!"
+/>
+            </div>
+            <br/>
             <button
               style={{
                 width: "150px",

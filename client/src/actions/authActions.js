@@ -1,7 +1,7 @@
 import axios from "axios";
 import setAuthToken from "../util/setAuthToken";
 import jwt_decode from "jwt-decode";
-import passport_jwt from "passport-jwt";
+// import passport_jwt from "passport-jwt";
 
 import { GET_ERRORS, SET_CURRENT_USER, GET_CURRENT_USER, GET_ALL_USERS, USER_LOADING } from "./types";
 
@@ -60,36 +60,11 @@ export const getAllUsers = () => dispatch =>{
 	
 }
 
-// export const getAllUsers = () => dispatch =>{
-//   const token =localStorage.getItem("jwtToken");
-//   dispatch(setUserLoading());	
-//   console.log(token);
-//   axios	
-//     .get("/api/user/",{
-//       headers: {
-//         'Authorization': `token ${token}`
-//       }
-//     })	
-//     .then(res =>	
-//       console.log(res.data + " is this it?")
-//     )	
-//     // .then(res =>	
-//     //   dispatch({	
-//     //     type: GET_ALL_USERS,	
-//     //     payload: res.data	
-//     //   })	
-//     // )	
-//     .catch(err =>	
-//       dispatch({	
-//         type: GET_ERRORS,	
-//         payload: err.response.data	
-//       })	
-//     );	
-// }
-  
+
 //Login
 export const loginUser = (userData) => dispatch => {
   axios.post("/api/users/login",userData)
+  // .then( )
   .then( res => {
       const {token} = res.data;
       // Set token to localStorage

@@ -80,7 +80,7 @@ return (
                 invalid: errors.email || errors.emailnotfound
               })}
             />
-                <label htmlFor="email">Email</label>
+                {/* <label htmlFor="email">Email</label> */}
                 <span className="redtext">
                   {errors.email}
                   {errors.emailnotfound}
