@@ -63,7 +63,7 @@ return (
                   </p>
                 </div>
                 <form className="login-form" noValidate onSubmit={this.onSubmit}>
-          <h2>Register</h2>
+          <h2>Log in</h2>
           <hr />
 
           <div className="form-group">
