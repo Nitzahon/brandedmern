@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { registerUser } from "../../actions/authActions";
 import classnames from "classnames";
-import { withRouter } from 'react-router';
-
+import { withRouter } from "react-router";
 
 class Register extends Component {
   constructor(props) {
@@ -29,7 +29,7 @@ class Register extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
       this.setState({
-        errors: nextProps.errors
+        errors: nextProps.errors,
       });
     }
   }
@@ -43,7 +43,7 @@ class Register extends Component {
 
   _onFocus = (e) => {
     e.currentTarget.type = "date"; //change to date type
-    e.currentTarget.placeholder="dd-mm-yyyy"
+    e.currentTarget.placeholder = "dd-mm-yyyy";
     var today = new Date();
     var dd = today.getDate();
     var mm = today.getMonth() + 1; //January is 0!
@@ -88,117 +88,135 @@ class Register extends Component {
     };
 
     //console.log(payload);
-    this.props.registerUser(payload, this.props.history); 
+    this.props.registerUser(payload, this.props.history);
   };
 
   render() {
-      const {errors} = this.state;
+    const { errors } = this.state;
     //JSX
     return (
-        <div className="row">
-          <div className="col-4"></div>
-      <div className="form-box col-4">
-        <form className="signup-form" onSubmit={this.onSubmit}>
-          <h2>Register</h2>
-          <hr />
-          <div className="form-group">
-            <input
-              type="text"
-              id="name"
-              placeholder="Your Name"
-              value={this.state.name}
-              error={errors.name}
-              onChange={this.handleChange}
-              className={classnames("", {
-                invalid: errors.name
-              })}
-            />
-            <span className="redtext">{errors.name}</span>
-          </div>
+      <div className="row">
+        <div className="col-1"></div>
+        <div className="form-box col-10">
+          <form className="signup-form" onSubmit={this.onSubmit}>
+            <div className="row">
+              <div className="col-1"></div>
+              <div className="col-6">
+                <h2>Register</h2>
+                <hr />
+                <div className="form-group">
+                  <input
+                    type="text"
+                    id="name"
+                    placeholder="Your Name"
+                    value={this.state.name}
+                    error={errors.name}
+                    onChange={this.handleChange}
+                    className={classnames("", {
+                      invalid: errors.name,
+                    })}
+                  />
+                  <span className="redtext">{errors.name}</span>
+                </div>
 
-          <div className="form-group">
-            <input
-              type="email"
-              id="email"
-              placeholder="Email Address"
-              value={this.state.email}
-              error={errors.email}
-              onChange={this.handleChange}
-              className={classnames("", {
-                invalid: errors.email
-              })}
-            />
-            <span className="redtext">{errors.email}</span>
-          </div>
-          <div className="form-group">
-            <input
-              type="text"
-              id="dateofbirth"
-              placeholder="Date of Birth"
-              value={this.state.dateofbirth}
-              error={errors.dateofbirth}
-              onFocus={this._onFocus}
-              onBlur={this._onBlur}
-              onChange={this.handleChange}
-              className={classnames("", {
-                invalid: errors.dateofbirth
-              })}
-            />
-            <span className="redtext">{errors.dateofbirth}</span>
-          </div>
-          <div className="form-group">
-            <input
-              type="password"
-              id="password"
-              placeholder="Password"
-              value={this.state.password}
-              error={errors.password}
-              onChange={this.handleChange}
-              className={classnames("", {
-                invalid: errors.password
-              })}
-            />
-            <span className="redtext">{errors.password}</span>
-          </div>
+                <div className="form-group">
+                  <input
+                    type="email"
+                    id="email"
+                    placeholder="Email Address"
+                    value={this.state.email}
+                    error={errors.email}
+                    onChange={this.handleChange}
+                    className={classnames("", {
+                      invalid: errors.email,
+                    })}
+                  />
+                  <span className="redtext">{errors.email}</span>
+                </div>
+                <div className="form-group">
+                  <input
+                    type="text"
+                    id="dateofbirth"
+                    placeholder="Date of Birth"
+                    value={this.state.dateofbirth}
+                    error={errors.dateofbirth}
+                    onFocus={this._onFocus}
+                    onBlur={this._onBlur}
+                    onChange={this.handleChange}
+                    className={classnames("", {
+                      invalid: errors.dateofbirth,
+                    })}
+                  />
+                  <span className="redtext">{errors.dateofbirth}</span>
+                </div>
+                <div className="form-group">
+                  <input
+                    type="password"
+                    id="password"
+                    placeholder="Password"
+                    value={this.state.password}
+                    error={errors.password}
+                    onChange={this.handleChange}
+                    className={classnames("", {
+                      invalid: errors.password,
+                    })}
+                  />
+                  <span className="redtext">{errors.password}</span>
+                </div>
 
-          <div className="form-group">
-            <input
-              type="password"
-              id="password2"
-              placeholder="Confirm Password"
-              value={this.state.password2}
-              error={errors.password}
-              onChange={this.handleChange}
-              className={classnames("", {
-                invalid: errors.password2
-              })}
-            />
-            <span className="redtext">{errors.password2}</span>
-          </div>
-          <div className="form-group">
-            <button type="submit" className="btn btn-primary btn-block btn-lg">
-              Sign Up
-            </button>
-          </div>
-          {/* <div className="text-center">Already have an account? <Link to="/login">Login here</Link></div> */}
-        </form>
-      </div>
-      <div className="col-4"></div>
+                <div className="form-group">
+                  <input
+                    type="password"
+                    id="password2"
+                    placeholder="Confirm Password"
+                    value={this.state.password2}
+                    error={errors.password}
+                    onChange={this.handleChange}
+                    className={classnames("", {
+                      invalid: errors.password2,
+                    })}
+                  />
+                  <span className="redtext">{errors.password2}</span>
+                </div>
+              </div>
+              <div className="col-5"></div>
+            </div>
+            <div className="row">
+              <div className="col-2"></div>
+              <div className="form-group col-7">
+                <button
+                  type="submit"
+                  className="btn btn-primary btn-block col-12"
+                >
+                  Sign Up
+                </button>
+              </div>
+              <div className="col-3"></div>
+            </div>
+            <div className="row">
+            
+
+              <div className="col-12">
+                Already have an account? <Link to="/login">Login here</Link>
+              </div>
+            </div>
+            <br />
+          </form>
+        </div>
+
+        <div className="col-1"></div>
       </div>
     );
   }
 }
 Register.propTypes = {
-    registerUser: PropTypes.func.isRequired,
-    auth: PropTypes.object.isRequired,
-    errors: PropTypes.object.isRequired
-  };
-const mapStateToProps = state => ({
-    auth: state.auth,
-    errors: state.errors
-  });
-  //export too connect the register with the prop states
-export default connect(
-    mapStateToProps,
-    { registerUser }
-  )(withRouter(Register));
+  registerUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired,
+};
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  errors: state.errors,
+});
+//export too connect the register with the prop states
+export default connect(mapStateToProps, { registerUser })(withRouter(Register));

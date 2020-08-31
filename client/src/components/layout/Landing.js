@@ -25,6 +25,7 @@ class Landing extends Component {
               </div>
               <div className="col-3"></div>
             </div>
+            <br/>
             <div className="row">
               <div className="col-3"></div>
               <div className="col-6">

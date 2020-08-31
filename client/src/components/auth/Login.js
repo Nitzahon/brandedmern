@@ -44,8 +44,6 @@ if (nextProps.errors) {
       email: this.state.email,
       password: this.state.password,
     };
-
-    //console.log(payload);
     this.props.loginUser(payload); //send user data to props
   };
   render() {
@@ -80,7 +78,6 @@ return (
                 invalid: errors.email || errors.emailnotfound
               })}
             />
-                {/* <label htmlFor="email">Email</label> */}
                 <span className="redtext">
                   {errors.email}
                   {errors.emailnotfound}
