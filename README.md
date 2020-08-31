@@ -1,10 +1,10 @@
 # brandedmern
-after cloning, run npm install from bothe the master and client folder
+after cloning,  from the main folder run:
+npm install && cd client && npm install
 
-the run:
+
+then run from either the main or client folder:
 
 npm dev start
 
 Author: Nadav Gur-Arieh
-
-This project was heavily influenced by the bits-pieces blog. please show your support at https://blog.bitsrc.io/
