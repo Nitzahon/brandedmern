@@ -4,6 +4,8 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
 const passport = require("passport");
+const nodemailer = require('nodemailer');
+
 // const mongo = require("mongodb");
 // const assert = require("assert");
 //const users = require("../../controllers/controller.js");
@@ -13,7 +15,6 @@ const validateLoginInput = require("../../validation/login");
 // Load User model
 const User = require("../../models/User");
 // const EMAIL_SECRET = require("../../config/keys");
-// const nodemailer =require ("nodemailer");
 // const xoauth2 = require('xoauth2');
 // @route POST api/users/register
 // @desc Register user
@@ -99,7 +100,27 @@ router.post("/register", (req, res) => {
       // } catch (e) {
       //   console.log(e);
       // }  
-    main(newUser.email);
+      var transport = nodemailer.createTransport({  //Mailtrap works, if you want to test mails then use your own credentials or contact author for Mailtrap access
+        host: "smtp.mailtrap.io",
+        port: 2525,
+        auth: {
+          user: "e2099db76ea72a",
+          pass: "1b32b6e934201e"
+        }
+      });
+      const message = {
+        from: 'nadavga@gmail.com', // Sender address
+        to: newUser.email,          // List of recipients, also make sure the mail is sent
+        subject: 'Welcome to Branded', // Subject line
+        text: 'Welcome to the site!' // Plain text body
+    };
+    transport.sendMail(message, function(err, info) {
+        if (err) {
+          console.log(err)
+        } else {
+          console.log(info);
+        }
+    });
     }
     });
   });
