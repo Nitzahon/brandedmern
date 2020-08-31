@@ -101,7 +101,7 @@ class Register extends Component {
           <form className="signup-form" onSubmit={this.onSubmit}>
             <div className="row">
               <div className="col-1"></div>
-              <div className="col-6">
+              <div className="col-7">
                 <h2>Register</h2>
                 <hr />
                 <div className="form-group">
@@ -116,7 +116,7 @@ class Register extends Component {
                       invalid: errors.name,
                     })}
                   />
-                  <span className="redtext">{errors.name}</span>
+                  <br/><span className="redtext">{errors.name}</span>
                 </div>
 
                 <div className="form-group">
@@ -131,7 +131,7 @@ class Register extends Component {
                       invalid: errors.email,
                     })}
                   />
-                  <span className="redtext">{errors.email}</span>
+                  <br/><span className="redtext">{errors.email}</span>
                 </div>
                 <div className="form-group">
                   <input
@@ -147,7 +147,7 @@ class Register extends Component {
                       invalid: errors.dateofbirth,
                     })}
                   />
-                  <span className="redtext">{errors.dateofbirth}</span>
+                  <br/><span className="redtext">{errors.dateofbirth}</span>
                 </div>
                 <div className="form-group">
                   <input
@@ -161,7 +161,7 @@ class Register extends Component {
                       invalid: errors.password,
                     })}
                   />
-                  <span className="redtext">{errors.password}</span>
+                  <br/><span className="redtext">{errors.password}</span>
                 </div>
 
                 <div className="form-group">
@@ -176,10 +176,10 @@ class Register extends Component {
                       invalid: errors.password2,
                     })}
                   />
-                  <span className="redtext">{errors.password2}</span>
+                  <br/><span className="redtext">{errors.password2}</span>
                 </div>
               </div>
-              <div className="col-5"></div>
+              <div className="col-4"></div>
             </div>
             <div className="row">
               <div className="col-2"></div>
