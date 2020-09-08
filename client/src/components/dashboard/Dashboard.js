@@ -40,12 +40,11 @@ class Dashboard extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.auth.users) {
       var tmp = [...nextProps.auth.users];
-      console.log(tmp)
       tmp.forEach(function(element, index) {
         element.age = calculate_age(element['dateofbirth']);
         delete element['dateofbirth'];
     });
-      console.log(tmp);
+
       this.setState({
         users:  [...tmp]
       });

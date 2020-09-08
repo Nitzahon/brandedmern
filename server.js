@@ -2,9 +2,11 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
-const path = require("path");
 const passport = require("passport");
 const users = require("./routes/api/users");
+
+// require('dotenv').config({path: __dirname + '/.env'});
+require('dotenv').config();
 
 const app = express();
 
@@ -16,7 +18,10 @@ app.use(
 );
 app.use(bodyParser.json());
 // DB Config
-const db = require("./config/keys").mongoURI;
+
+
+const db = process.env.mongoURI;
+
 
 
 mongoose
@@ -26,9 +31,7 @@ mongoose
   })
   .then(() => console.log("MongoDB successfully connected"))
   .catch((err) => console.log(err));
-// mongoose.connection.on('connected', ()=>{
-// console.log('Mongoose is connected!!!');
-// });
+
 
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
@@ -40,7 +43,7 @@ require("./config/passport")(passport);
 // Routes
 
 app.use("/api/users", users);
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 5000;
 //HTTP request logger
 app.use(morgan("tiny"));
 
